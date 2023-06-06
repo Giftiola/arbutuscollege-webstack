@@ -1,4 +1,7 @@
 global
+        maxconn 2048
+        tune.ssl.default-dh-param 2048
+
         log /dev/log    local0
         log /dev/log    local1 notice
         chroot /var/lib/haproxy
@@ -45,7 +48,7 @@ frontend www-http
         default_backend www-backend
 
 frontend www-https
-        bind *:443
+        bind *:443 ssl crt /etc/haproxy/certs/www.zadomenspremni.tech.pem
         reqadd X-Forwarded-Proto:\ https
         acl letsencrypt-acl path_beg /.well-known/acme-challenge/
         use_backend letsencrypt-backend if letsencrypt-acl
