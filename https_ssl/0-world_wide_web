@@ -9,5 +9,9 @@ subdomain_data() {
 }
 
 for subdomain in "${subdomains[@]}"; do
-	subdomain_data "$subdomain" "$domain"
+    if [ "$subdomain" == "web-01" ]; then
+        subdomain_data "$subdomain" "$domain" | sed 's/34.198.248.145/52.47.191.104/'
+    else
+        subdomain_data "$subdomain" "$domain"
+    fi
 done
